@@ -1,0 +1,18 @@
+[Unit]
+Description=Tomcat 9 servlet container
+After=network.target
+[Service]
+Type=forking
+User=apmosys
+Group=apmosys
+Environment="JAVA_HOME=/usr/java"
+Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom"
+Environment="CATALINA_BASE=/data/tomcat-app/tomcat-emp"
+Environment="CATALINA_HOME=/data/tomcat-app/tomcat-emp"
+Environment="CATALINA_PID=/data/tomcat-app/tomcat-emp/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+ExecStart=/data/tomcat-app/tomcat-emp/bin/startup.sh
+ExecStop=/data/tomcat-app/tomcat-emp/bin/shutdown.sh
+[Install]
+WantedBy=multi-user.target
+

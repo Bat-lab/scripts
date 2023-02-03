@@ -1,0 +1,40 @@
+---
+
+- hosts: install
+  gather_facts: true
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+
+   # - name: delete
+     #  file:
+     #    path: /home/administrator/{{ item }}
+     #    state: absent
+     # loop:
+     #   - google-chrome*
+     #   - anydesk_* 
+    - name: delete chrome and anydesk
+      shell: rm -rf /home/administrator/google-*
+      shell: rm -rf /home/administrator/anydesk_6.2.1-1_*
+
+    - name: download chrome
+      shell: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+
+    - name: install chrome
+      shell: "dpkg -i google-chrome-stable_current_amd64.deb"
+
+    - name: download anydesk
+      shell: "wget https://download.anydesk.com/linux/anydesk_6.2.1-1_amd64.deb"
+
+    - name: install anydesk
+      shell: "dpkg -i https://download.anydesk.com/linux/anydesk_6.2.1-1_amd64.deb"
+      shell: "apt --fix-broken install -y"
+    
+    - name: apt update
+      shell: "apt update -y"
+
+    - name: install java
+      package:
+        name: openjdk-8-jdk
+        state: present
