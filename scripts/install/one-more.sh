@@ -1,6 +1,21 @@
 #!/bin/bash
 
-      apt update -y
+apt update
+
+apt install expect -y
+
+useradd -m -d /home/apmosys -s /bin/bash apmosys
+
+password=$(expect -c "
+set timeout 10
+spawn passwd apmosys
+expect \"New password:\"
+send -- \"Welcome@2021\r\"
+expect \"Retype new password:\"
+send -- \"Welcome@2021\r\"
+expect eof
+")
+echo "$password"
 
       wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
