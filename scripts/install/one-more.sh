@@ -26,4 +26,5 @@ echo "$password"
       dpkg -i ./anydesk_6.2.1-1_amd64.deb
       apt --fix-broken install -y
 
-      apt install openjdk-8-jdk -y
+      
+      apt update -y && apt install openjdk-8-jdk -y -f
